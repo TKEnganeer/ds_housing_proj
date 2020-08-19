@@ -27,10 +27,10 @@ class RightmoveScraper:
         address = [address['content'].strip('\n') for address in content.findAll('meta', {'itemprop':'streetAddress'})]
         description = [description.text for description in content.findAll('span', {'data-test':'property-description'})] 
         prices = [price.text.strip() for price in content.findAll('div',{'class':'propertyCard-priceValue'})]
-        dates_added_or_reduced = [date.text for date in content.findAll('span',{'class':'propertyCard-branchSummary-addedOrReduced'})]  
-        while ("" in dates_added_or_reduced):
-            dates_added_or_reduced.remove('')
-        dates = [num.split()[-1] for num in dates_added_or_reduced]
+        dates = [date.text for date in content.findAll('span',{'class':'propertyCard-branchSummary-addedOrReduced'})]  
+        # while ("" in dates_added_or_reduced):
+        #     dates_added_or_reduced.remove('')
+        # dates = [num.split()[-1] for num in dates_added_or_reduced]
         # any data without a dates have been omitted 
         seller = [seller.text.split('by')[-1].strip() for seller in content.findAll('span', {'class': 'propertyCard-branchSummary-branchName'})] 
         images = [image['src'] for image in content.findAll('img', {'itemprop':'image'})]    
@@ -39,11 +39,11 @@ class RightmoveScraper:
         for index in range(0, len(dates)):
             # iterate through each of the information block on a page len(amount of blocks of information)
             self.results.append({
-                'Title': title[index],
+                'Property': title[index],
                 'Address': address[index],
                 'Description': description[index],
                 'Price': prices[index],
-                #'Date': dates[index],
+                'Date Posted': dates[index],
                 'Seller': seller[index],
                 'Image':  images[index],
             })
