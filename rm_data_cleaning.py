@@ -37,16 +37,22 @@ df['price_val'].dtype
 # parsing of location 
 
 # Luton
-df['luton_yn'] = df['Description'].apply(lambda x: 1 if 'luton' in x.lower() else 0)
+df['luton_yn'] = df['Address'].apply(lambda x: 1 if 'luton' in x.lower() else 0)
 df.luton_yn.value_counts()
 # Essex
-df['essex_yn'] = df['Description'].apply(lambda x: 1 if 'essex' in x.lower() else 0)
+df['essex_yn'] = df['Address'].apply(lambda x: 1 if 'essex' in x.lower() else 0)
 df.essex_yn.value_counts()
 # Braintree
-
+df['braintree_yn'] = df['Address'].apply(lambda x: 1 if 'braintree' in x.lower() else 0)
+df.braintree_yn.value_counts()
 # parsing of description
 
-# large garden
-
+#  garden
+df['garden_yn'] = df['Description'].apply(lambda x: 1 if 'garden' in x.lower() else 0)
+df.garden_yn.value_counts()
 # planning/ extension 
+df['exten_yn'] = df['Description'].apply(lambda x: 1 if 'exten' in x.lower() else 0)
+df.exten_yn.value_counts()
+
+df.to_csv('rm_data_cleaned.csv')
 
